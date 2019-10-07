@@ -1,0 +1,115 @@
+<div class="row carousel-nav-wrapper">
+    <div class="col-xs-6">
+        <a href="#" id="slick-nav-prev" class="btn btn-primary">{{ 'Previous' | t }}</a>
+    </div>
+    <div class="col-xs-6">
+        <a href="#" id="slick-nav-next" class="btn btn-primary">{{ 'Next' | t }}</a>
+    </div>
+</div>
+<div class="row carousel-wrapper">
+    <div class="col-xs-12">
+        <div id="slick-carousel">
+            {% for movie in movies %}
+                <div class="movie" data-id="{{ movie.id }}">
+                    <h3 class="movie-title">{{ movie.title }}</h3>
+                    <h5 class="movie-release-year">{{ movie.release_date }}</h5>
+                    <div id="movie-{{ movie.id }}-rating" data-init="{{ movie.rating }}" class="row ratings-wrapper">
+                        <div class="col-xs-2">
+                            <button class="rating btn {{ movie.rating == 1 ? 'btn-success' : 'btn-secondary' }}" data-value="1">1</button>
+                        </div>
+                        <div class="col-xs-2">
+                            <button class="rating btn {{ movie.rating == 2 ? 'btn-success' : 'btn-secondary' }}" data-value="2">2</button>
+                        </div>
+                        <div class="col-xs-2">
+                            <button class="rating btn {{ movie.rating == 3 ? 'btn-success' : 'btn-secondary' }}" data-value="3">3</button>
+                        </div>
+                        <div class="col-xs-2">
+                            <button class="rating btn {{ movie.rating == 4 ? 'btn-success' : 'btn-secondary' }}" data-value="4">4</button>
+                        </div>
+                        <div class="col-xs-2">
+                            <button class="rating btn {{ movie.rating == 5 ? 'btn-success' : 'btn-secondary' }}" data-value="5">5</button>
+                        </div>
+                        <div class="col-xs-2">
+                            <button class="btn btn-danger">X</button>
+                        </div>
+                    </div>
+                    <img class="movie-poster img-responsive" alt="" src="" data-lazy="{{ movie.image }}"/>
+                    <p class="movie-overview alert alert-info">{{ movie.overview }}</p>
+                    <script>
+                      "use strict";
+                      jQuery(function () {
+                        const ratingWrapper = jQuery("#movie-{{ movie.id }}-rating");
+                        const ratings = ratingWrapper.find(".rating");
+                        const clearButton = ratingWrapper.find(".btn-danger");
+                        const setStates = function (items, state) {
+                          jQuery.each(items, function (i, k) {
+                            const rating = jQuery(k);
+                            rating.attr("disabled", state);
+                          });
+                        };
+                        jQuery.each(ratings, function (i, k) {
+                          const rating = jQuery(k);
+                          const ratingValue = rating.attr("data-value");
+                          rating.click(function (e) {
+                            e.preventDefault();
+                            setStates(ratings, true);
+                            jQuery.ajax("/cafeto/api/set-rating", {
+                              method: "POST",
+                              cache: false,
+                              data: {
+                                session: "{{ session }}",
+                                movie: {{ movie.id }},
+                                value: ratingValue
+                              },
+                              dataType: "json",
+                              success: function (res) {
+                                if(res.success) {
+                                  rating
+                                      .removeClass('btn-secondary')
+                                      .addClass('btn-success');
+                                  alert("{{ 'New rating assigned' | t }}");
+                                } else {
+                                  alert("{{ 'There was an error assigning this rating' | t }}");
+                                }
+                                setStates(ratings, false);
+                                clearButton.attr("disabled", false);
+                              }
+                            });
+                          });
+                        });
+                        clearButton.click(function (e) {
+                          e.preventDefault();
+                          clearButton.attr("disabled", true);
+                          setStates(ratings, true);
+                          jQuery.ajax("/cafeto/api/delete-rating", {
+                            method: "POST",
+                            cache: false,
+                            data: {
+                              session: "{{ session }}",
+                              movie: {{ movie.id }}
+                            },
+                            dataType: "json",
+                            success: function (res) {
+                              if(res.success) {
+                                jQuery.each(ratings, function (i, k) {
+                                  const rating = jQuery(k);
+                                  rating
+                                      .removeClass('btn-success')
+                                      .addClass('btn-secondary');
+                                });
+                                alert("{{ 'Rating for this movie cleared' | t }}");
+                              } else {
+                                alert("{{ 'There was an error clearing this rating' | t }}");
+                              }
+                              setStates(ratings, false);
+                              clearButton.attr("disabled", false);
+                            }
+                          });
+                        });
+                      });
+                    </script>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

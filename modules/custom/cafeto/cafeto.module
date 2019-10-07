@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function cafeto_theme($existing, $type, $theme, $path) {
+  return [
+    'cafeto_slick_carousel' => [
+      'template' => 'cafeto-slick-carousel',
+      'variables' => [
+        'movies' => NULL,
+        'session' => NULL,
+      ],
+    ],
+    'cafeto_year_select' => [
+      'template' => 'cafeto-year-select',
+      'variables' => [
+        'years' => NULL,
+      ],
+    ],
+    'cafeto_content' => [
+      'template' => 'cafeto-content',
+      'variables' => [
+        'session' => NULL,
+      ],
+    ],
+  ];
+}

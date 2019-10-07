@@ -1,0 +1,6 @@
+cafeto.admin:
+  title: 'Cafeto'
+  description: 'Define Cafeto settings'
+  parent: system.admin_config
+  route_name: cafeto.settings
+  weight: -100

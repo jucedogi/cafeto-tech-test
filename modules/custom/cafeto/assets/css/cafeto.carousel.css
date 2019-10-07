@@ -1,0 +1,17 @@
+.movie-poster {
+  border-radius: 10px;
+  width: 100%;
+}
+#slick-nav-prev, #slick-nav-next {
+  width: 100%;
+}
+.carousel-nav-wrapper {
+  margin-top: 30px;
+}
+.movie-title, .movie-release-year {
+  text-align: center;
+}
+.ratings-wrapper button {
+  width: 100%;
+  margin: 10px 0 20px;
+}

@@ -1,0 +1,20 @@
+cafeto.select:
+  #version: VERSION
+  js:
+    assets/js/cafeto.year-select.js: {}
+  dependencies:
+    - core/jquery
+cafeto.carousel:
+  #version: VERSION
+  css:
+    component:
+      assets/css/slick-theme.css: { }
+      assets/css/slick.css: { }
+      # assets/css/star-rating.min.css: { minified: true }
+      assets/css/cafeto.carousel.css: { }
+  js:
+    # assets/js/star-rating.min.js: { minified: true }
+    assets/js/slick.min.js: { minified: true }
+    assets/js/cafeto.carousel.js: {}
+  dependencies:
+    - core/jquery

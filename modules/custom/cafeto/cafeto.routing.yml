@@ -1,0 +1,68 @@
+# module settings form
+cafeto.settings:
+  path: '/admin/config/cafeto/settings'
+  defaults:
+    _form: '\Drupal\cafeto\Form\CafetoSettingsForm'
+    _title: 'Cafeto Settings'
+  requirements:
+    _permission: 'administer site configuration'
+# this is just a url for testing
+cafeto.tests:
+  path: '/cafeto/tests'
+  defaults:
+    _controller: '\Drupal\cafeto\Controller\CafetoController::tests'
+    _title: 'This is a page for testing stuff'
+  requirements:
+    _custom_access: '\Drupal\cafeto\Controller\CafetoController::access'
+# token auth callback page (cafeto/token-callback)
+cafeto.token_callback:
+  path: '/cafeto/token-callback'
+  defaults:
+    _controller: '\Drupal\cafeto\Controller\CafetoController::tmdbTokenAuthCallback'
+  requirements:
+    _access: 'TRUE'
+  options:
+    no_cache: 'TRUE'
+# display of content via module's Controller
+cafeto.content:
+  path: '/cafeto'
+  defaults:
+    _controller: '\Drupal\cafeto\Controller\CafetoController::content'
+  requirements:
+    _access: 'TRUE'
+  options:
+    no_cache: 'TRUE'
+# display carousel with movies of a selected year
+cafeto.movies:
+  path: '/cafeto/movies/{year}'
+  defaults:
+    _controller: '\Drupal\cafeto\Controller\CafetoController::movies'
+  options:
+    no_cache: 'TRUE'
+  requirements:
+    _permission: 'access content'
+# ------------------------ API ------------------------
+cafeto.api_set_rating:
+  path: '/cafeto/api/set-rating'
+  defaults:
+    _controller: '\Drupal\cafeto\Controller\CafetoController::setRating'
+  requirements:
+    _access: 'TRUE'
+cafeto.api_delete_rating:
+  path: '/cafeto/api/delete-rating'
+  defaults:
+    _controller: '\Drupal\cafeto\Controller\CafetoController::deleteRating'
+  requirements:
+    _access: 'TRUE'
+cafeto.api_session:
+  path: '/cafeto/api/session'
+  defaults:
+    _controller: '\Drupal\cafeto\Controller\CafetoController::getSession'
+  requirements:
+    _access: 'TRUE'
+cafeto.api_movies:
+  path: '/cafeto/api/movies/{year}'
+  defaults:
+    _controller: '\Drupal\cafeto\Controller\CafetoController::getMovies'
+  requirements:
+    _access: 'TRUE'

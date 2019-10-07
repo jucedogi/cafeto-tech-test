@@ -1,0 +1,8 @@
+name: Cafeto Test Challenge
+description: Module to aid in solving Cafeto's test challenge!
+package: Cafeto Challenge
+
+type: module
+core: 8.x
+
+configure: /admin/config/cafeto/settings

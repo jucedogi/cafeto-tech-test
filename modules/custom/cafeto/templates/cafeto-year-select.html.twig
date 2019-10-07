@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <form action="#" class="form" autocomplete="off">
+                <div class="form-group">
+                    <label for="year-select">{{ 'Choose a year' | t }}</label>
+                    <select name="year_select" id="year-select" class="form-control" required>
+                        <option value="">{{ '-- Select --' | t }}</option>
+                        {% for year in years %}
+                            <option value="{{ year }}">{{ year }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
