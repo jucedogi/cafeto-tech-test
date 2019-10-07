@@ -64,6 +64,14 @@
                               dataType: "json",
                               success: function (res) {
                                 if(res.success) {
+                                  jQuery.each(ratings, function (i,k) {
+                                    const tmp = jQuery(k);
+                                    if (tmp.hasClass('btn-success')) {
+                                      tmp
+                                          .removeClass('btn-success')
+                                          .addClass('btn-secondary');
+                                    }
+                                  });
                                   rating
                                       .removeClass('btn-secondary')
                                       .addClass('btn-success');
